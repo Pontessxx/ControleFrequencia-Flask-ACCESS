@@ -1,0 +1,11 @@
+flask
+pandas
+pyodbc
+json
+warnings
+plotly
+datetime
+os
+rich
+click
+logging

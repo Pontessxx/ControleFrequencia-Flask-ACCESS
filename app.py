@@ -929,4 +929,4 @@ if __name__ == "__main__":
     rprint('[blue]URL :[/blue] http://127.0.0.1/5000')
     rprint('Press CTRL+C to quit')
     print('\n')
-    app.run(debug=True)
+    app.run()
