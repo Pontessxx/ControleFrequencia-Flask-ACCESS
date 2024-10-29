@@ -15,17 +15,17 @@ import logging
 # pyinstaller --name "Dashboard" --add-data "C:\Users\Henrique\Downloads\Controle.accdb;." --add-data "templates;templates" --add-data "static;static" app.py
 
 # pyinstaller --onefile --add-data "C:\Users\Henrique\Downloads\Controle.accdb;." --add-data "templates;templates" --add-data "static;static" app.py
-# log = logging.getLogger('werkzeug')
-# log.setLevel(logging.ERROR)
+log = logging.getLogger('werkzeug')
+log.setLevel(logging.ERROR)
 
-# def secho(text, file=None, nl=None, err=None, color=None, **styles):
-#     pass
+def secho(text, file=None, nl=None, err=None, color=None, **styles):
+    pass
 
-# def echo(text, file=None, nl=None, err=None, color=None, **styles):
-#     pass
+def echo(text, file=None, nl=None, err=None, color=None, **styles):
+    pass
 
-# click.echo = echo
-# click.secho = secho
+click.echo = echo
+click.secho = secho
 
 warnings.filterwarnings('ignore')
 
@@ -950,7 +950,7 @@ def desprogramar_ferias():
 
 if __name__ == "__main__":
     rprint('[blue]Voce consegue visualizar o seu Dashboard atraves da URL [/blue]')
-    rprint('[blue]URL :[/blue] http://127.0.0.1/5000')
+    rprint('[blue]URL :[/blue] http://127.0.0.1:5000')
     rprint('Press CTRL+C to quit')
     print('\n')
-    app.run(debug=True)
+    app.run()
