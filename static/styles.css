@@ -627,35 +627,25 @@ input[type="checkbox"]:checked + .checkbox_span::after {
         max-width: 100%; /* Garante que ele ocupe a largura total da seção */
     }
 }
-
-
-/* Ajustes para telas grandes (acima de 1064px) */
-@media screen and (min-width: 1065px) {
+/* Ajustes para telas entre 1065px e 2881px */
+@media screen and (min-width: 1065px) and (max-width: 2880px) {
     .graficos {
         display: flex;
-        flex-direction: column;
-        justify-content: center;
+        flex-direction: row; /* Mantém os gráficos lado a lado */
+        justify-content: space-around; /* Distribui os gráficos de forma uniforme */
         gap: 20px;
-        flex-wrap: nowrap;  /* Impede que os gráficos quebrem em múltiplas linhas */
     }
 
-    .graficos .grafico_um, .graficos .grafico_dois {
-        flex: 1;  /* Permite que os gráficos ocupem a mesma proporção de espaço */
-    }
     #scatter-chart {
-        width: 100%; /* Expande o gráfico de dispersão para a largura total */
-        height: 400px;
+        width: 100%; /* Faz o gráfico de dispersão ocupar a largura total */
+        max-width: 100%; /* Garante que ele não extrapole a área */
+        height: 400px; /* Define uma altura fixa */
     }
 }
 
 
 /* Ajustes para telas médias (1064px) */
-@media screen and (max-width: 2881px) {
-    .graficos {
-        /* flex-direction: row;
-        justify-content: space-around; Garante espaçamento adequado entre os gráficos */
-    }
-
+@media screen and (min-width: 2870px) {
     #pie-chart {
         height: 500px; /* Reduz um pouco a altura dos gráficos */
     }
@@ -663,7 +653,7 @@ input[type="checkbox"]:checked + .checkbox_span::after {
         height: 500px;
     }
     #scatter-chart {
-        height: 400px; /* Mantém a altura do gráfico de dispersão */
+        /* height: 400px; Mantém a altura do gráfico de dispersão */
         max-width: 100%; /* Garante que ele ocupe a largura total da seção */
     }
 }

@@ -11,6 +11,18 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <link rel="stylesheet" href="../static/styles.css">
+    <script>
+        // Função para capturar a largura da tela e armazenar no sessionStorage
+        function salvarLarguraTela() {
+            const screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+            sessionStorage.setItem('screenWidth', screenWidth);
+        }
+    
+        // Chama a função ao carregar a página
+        document.addEventListener("DOMContentLoaded", function() {
+            salvarLarguraTela();
+        });
+    </script>    
 </head>
 <body>
     <div class="container">
@@ -263,6 +275,27 @@
         function goToAddPresenca() {
             window.location.href = "/adicionar-presenca";
         }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            // Verifique se a largura da tela já está armazenada
+            const screenWidth = sessionStorage.getItem('screenWidth');
+
+            if (screenWidth) {
+                // Envia o valor de screenWidth ao backend
+                fetch("/capturar_largura_tela", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ screenWidth: screenWidth })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log("Largura do gráfico recebida do backend:", data.larguraGrafico);
+                })
+                .catch(error => console.error("Erro ao enviar a largura da tela:", error));
+            }
+        });
     </script>
     
 </body>

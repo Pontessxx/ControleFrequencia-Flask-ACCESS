@@ -11,17 +11,21 @@ from rich import print as rprint
 import click
 import logging
 
-log = logging.getLogger('werkzeug')
-log.setLevel(logging.ERROR)
 
-def secho(text, file=None, nl=None, err=None, color=None, **styles):
-    pass
+# pyinstaller --name "Dashboard" --add-data "C:\Users\Henrique\Downloads\Controle.accdb;." --add-data "templates;templates" --add-data "static;static" app.py
 
-def echo(text, file=None, nl=None, err=None, color=None, **styles):
-    pass
+# pyinstaller --onefile --add-data "C:\Users\Henrique\Downloads\Controle.accdb;." --add-data "templates;templates" --add-data "static;static" app.py
+# log = logging.getLogger('werkzeug')
+# log.setLevel(logging.ERROR)
 
-click.echo = echo
-click.secho = secho
+# def secho(text, file=None, nl=None, err=None, color=None, **styles):
+#     pass
+
+# def echo(text, file=None, nl=None, err=None, color=None, **styles):
+#     pass
+
+# click.echo = echo
+# click.secho = secho
 
 warnings.filterwarnings('ignore')
 
@@ -53,6 +57,26 @@ color_marker_map = {
     'ALPHAVILLE':{'cor': '#76A9B7', 'marker': 'square'},
 }
 
+@app.route("/capturar_largura_tela", methods=["POST"])
+def capturar_largura_tela():
+    screen_width = request.json.get("screenWidth")
+    screen_width = int(screen_width)
+    
+    # Defina a largura do gráfico com base na largura da tela recebida
+    if screen_width <= 1064:
+        largura_grafico = 800
+    elif 1065 <= screen_width <= 1280:
+        largura_grafico = 1000
+    elif screen_width >= 1920:
+        largura_grafico = 1300
+    else:
+        largura_grafico = 500
+    
+    # Armazena a largura do gráfico na sessão
+    session['larguraGrafico'] = largura_grafico
+    
+    return jsonify({"larguraGrafico": largura_grafico})
+
 @app.route("/", methods=["GET", "POST"])
 def index():
     # Consultar sites
@@ -64,7 +88,7 @@ def index():
     selected_empresa = request.form.get("empresa") or session.get('selected_empresa')
     selected_ano = request.form.get("ano")  # Captura o valor do ano selecionado
     
-    
+    largura_grafico = session.get('larguraGrafico') 
 
     # Salva os valores na sessão
     if selected_site:
@@ -282,7 +306,7 @@ def index():
                         'font': {'size': 24}  # Altera o tamanho da fonte do título
                     },
                     barmode='stack',
-                    width=1300,
+                    width=largura_grafico,
                     xaxis=dict(title='Nome', showgrid=False),
                     yaxis=dict(title='Contagem de Presença', showgrid=False),
                     plot_bgcolor='rgba(0,0,0,0)',
@@ -929,4 +953,4 @@ if __name__ == "__main__":
     rprint('[blue]URL :[/blue] http://127.0.0.1/5000')
     rprint('Press CTRL+C to quit')
     print('\n')
-    app.run()
+    app.run(debug=True)
