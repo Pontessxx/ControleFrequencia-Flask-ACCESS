@@ -65,10 +65,10 @@ def capturar_largura_tela():
     # Defina a largura do gráfico com base na largura da tela recebida
     if screen_width <= 1064:
         largura_grafico = 800
-    elif 1065 <= screen_width <= 1280:
-        largura_grafico = 1000
+    elif 1065 <= screen_width <= 1600:
+        largura_grafico = 450
     elif screen_width >= 1920:
-        largura_grafico = 1300
+        largura_grafico = 1000
     else:
         largura_grafico = 500
     
@@ -949,8 +949,13 @@ def desprogramar_ferias():
     return redirect(url_for('adiciona_presenca'))
 
 if __name__ == "__main__":
-    rprint('[blue]Voce consegue visualizar o seu Dashboard atraves da URL [/blue]')
-    rprint('[blue]URL :[/blue] http://127.0.0.1:5000')
-    rprint('Press CTRL+C to quit')
+    rprint('\n\t   :snake: [b]DASHBOARD - CONTROLE DE FREQUENCIA[/] :snake:')
+    rprint('[d]_______________________________________________________________[/]\n')
+    rprint('Voce consegue visualizar o seu Dashboard atraves da URL\n')
+    rprint('[d]URL :[/] [blink b] http://127.0.0.1:5000 [/]')
+    rprint('\t\t[blue d] ↑ Copie e cole a url em qualquer navegador![/]')
     print('\n')
+    rprint(':clock10: A[blue blink] URL [/]SÓ FUNCIONARA SE MANTER O EXECUTAVEL [b]ABERTO[/]')
+    print('\n')
+    rprint('[on red] Press CTRL+C para fechar[/]\n')
     app.run()

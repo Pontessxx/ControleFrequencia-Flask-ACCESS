@@ -627,33 +627,43 @@ input[type="checkbox"]:checked + .checkbox_span::after {
         max-width: 100%; /* Garante que ele ocupe a largura total da seção */
     }
 }
-/* Ajustes para telas entre 1065px e 2881px */
-@media screen and (min-width: 1065px) and (max-width: 2880px) {
+
+
+/* Ajustes para telas grandes (acima de 1064px) */
+@media screen and (min-width: 1065px) {
+    .main-content {
+        margin-left: 18%;  /* Ajusta o conteúdo para não sobrepor o menu fixo */
+    }
     .graficos {
         display: flex;
-        flex-direction: row; /* Mantém os gráficos lado a lado */
-        justify-content: space-around; /* Distribui os gráficos de forma uniforme */
-        gap: 20px;
+        flex-direction: row;
+        /* gap: 20px; */
     }
-
     #scatter-chart {
-        width: 100%; /* Faz o gráfico de dispersão ocupar a largura total */
-        max-width: 100%; /* Garante que ele não extrapole a área */
-        height: 400px; /* Define uma altura fixa */
+        width: 100%; /* Expande o gráfico de dispersão para a largura total */
+        height: 400px;
     }
 }
 
 
 /* Ajustes para telas médias (1064px) */
-@media screen and (min-width: 2870px) {
-    #pie-chart {
-        height: 500px; /* Reduz um pouco a altura dos gráficos */
+@media screen and (min-width: 2000px) {
+    .graficos {
+        /* border: 1px solid #FF5733; */
+        display: flex;
+        justify-content: space-around;
+        height: 600px;
     }
-    #stacked-bar-chart{
+
+    #pie-chart, #stacked-bar-chart{
         height: 500px;
     }
+    .graficos .grafico_dois{
+        /* border: 1px solid #f0ad4e; */
+        width: 50%;
+    }
     #scatter-chart {
-        /* height: 400px; Mantém a altura do gráfico de dispersão */
-        max-width: 100%; /* Garante que ele ocupe a largura total da seção */
+        height: 400px;
+        max-width: 100%;
     }
 }
