@@ -67,7 +67,9 @@ def capturar_largura_tela():
         largura_grafico = 800
     elif 1065 <= screen_width <= 1600:
         largura_grafico = 450
-    elif screen_width >= 1920:
+    elif screen_width >= 1920 and screen_width <= 1930:
+        largura_grafico = 500
+    elif screen_width >= 1930:
         largura_grafico = 1000
     else:
         largura_grafico = 500
@@ -87,14 +89,31 @@ def index():
     selected_site = request.form.get("site") or session.get('selected_site')
     selected_empresa = request.form.get("empresa") or session.get('selected_empresa')
     selected_ano = request.form.get("ano")  # Captura o valor do ano selecionado
-    
     largura_grafico = session.get('larguraGrafico') 
-
     # Salva os valores na sessão
     if selected_site:
         session['selected_site'] = selected_site
     if selected_empresa:
         session['selected_empresa'] = selected_empresa
+    
+    # Captura o intervalo de datas do formulário em vez de request.json
+    date_range = request.form.get("dateRange")
+    # Processa o intervalo de datas
+    if date_range:
+        try:
+            start_date_str, end_date_str = date_range.split(" to ")
+            
+            start_date = pd.to_datetime(start_date_str, dayfirst=True, errors='coerce')
+            end_date = pd.to_datetime(end_date_str, dayfirst=True, errors='coerce')
+            # print(f"Intervalo de datas: {start_date} \t {end_date}")
+        except Exception as e:
+            print(f"Erro ao processar o intervalo de datas: {e}")
+            start_date = None
+            end_date = None
+    else:
+        start_date = None
+        end_date = None
+
 
     selected_nomes = request.form.getlist("nomes")
     selected_meses = request.form.getlist("meses")
@@ -150,6 +169,8 @@ def index():
 
                 # Converte a coluna Data para datetime
                 df['Data'] = pd.to_datetime(df['Data'], format='%Y-%m-%d %H:%M:%S')
+                if start_date and end_date:
+                    df = df[(df['Data'] >= start_date) & (df['Data'] <= end_date)]
 
                 # Aplicar filtros adicionais
                 if selected_nomes:

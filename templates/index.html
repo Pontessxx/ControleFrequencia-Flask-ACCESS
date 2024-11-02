@@ -11,6 +11,9 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <link rel="stylesheet" href="../static/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.js"></script>
+
     <script>
         // Função para capturar a largura da tela e armazenar no sessionStorage
         function salvarLarguraTela() {
@@ -111,6 +114,10 @@
                                 </option>
                             {% endfor %}
                         </select>
+                    </div>
+                    <div>
+                        <label for="datePicker">Selecione o Período de Data:</label>
+                        <input type="text" id="datePicker" name="dateRange" placeholder="Selecione o período">
                     </div>
                     
                 </form>
@@ -252,7 +259,23 @@
                 $('#hiddenEmpresa').val(empresa);
                 $('#filterForm').submit();
             }
-    
+             // Inicializa o datepicker
+            flatpickr("#datePicker", {
+                mode: "range",
+                dateFormat: "d/m/Y",
+                minDate: "01/01/2024",
+                locale: {
+                    firstDayOfWeek: 1
+                },
+                onClose: function(selectedDates, dateStr, instance) {
+                    if (selectedDates.length === 2) {
+                        // Define o valor do campo de intervalo de datas no formulário
+                        $('#datePicker').val(dateStr);
+                        submitWithSiteEmpresa(); // Submete o formulário com o intervalo de datas
+                    }
+                }
+            });
+
             // Evento ao mudar os filtros
             $('#nomes, #meses, #presenca, #ano').on('change', function () {
                 submitWithSiteEmpresa();
