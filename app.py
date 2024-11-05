@@ -169,8 +169,6 @@ def index():
 
                 # Converte a coluna Data para datetime
                 df['Data'] = pd.to_datetime(df['Data'], format='%Y-%m-%d %H:%M:%S')
-                if start_date and end_date:
-                    df = df[(df['Data'] >= start_date) & (df['Data'] <= end_date)]
 
                 # Aplicar filtros adicionais
                 if selected_nomes:
@@ -180,6 +178,8 @@ def index():
                 if selected_meses:
                     selected_meses_numeric = [meses_dict[mes] for mes in selected_meses]
                     df = df[df['Data'].dt.strftime('%m').isin(selected_meses_numeric)]
+                if start_date and end_date:
+                    df = df[(df['Data'] >= start_date) & (df['Data'] <= end_date)]
 
                 # Gera uma lista contínua de datas entre o menor e o maior valor de data
                 min_data = df['Data'].min()
@@ -372,6 +372,7 @@ def index():
         total_atestados=total_atestados,
         color_marker_map=color_marker_map,
         selected_ano=selected_ano,
+        date_range=date_range
     )
 
 
