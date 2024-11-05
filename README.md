@@ -1,6 +1,10 @@
 # Sistema de Controle de Presença
 
+https://github.com/user-attachments/assets/115201bd-49ba-4313-b7a3-b2d3c6920e55
+
+</br>
 ## Descrição Geral
+
 
 Este projeto é um sistema de controle de presença desenvolvido com Flask, HTML, CSS e JavaScript. Ele permite gerenciar a presença de funcionários em diferentes sites e empresas, integrando gráficos e tabelas para visualização de dados. O sistema é focado em uma interface intuitiva que permite ao usuário adicionar, visualizar, modificar e desativar registros de presença, além de agendar férias para os funcionários.
 
